@@ -1,0 +1,153 @@
+__publishs:
+    sys_local:
+        pkg     : !P.pkg &sys_pkg
+            name    : "bag"
+            root    : ""
+            exclude :
+                - ".pyc"
+                - ".git"
+        deploy  : !P.deploy &sys_deploy
+            sudo    : True
+            root    : "/home/q/system"
+        host: !P.host
+            include :
+                - "127.0.0.1"
+        setup   : !P.rigger
+             sys    : "all"
+             os     : "diy"
+             env    : "online"
+
+    sys_demo: !P.publish
+        pkg     : *sys_pkg
+        deploy  : *sys_deploy
+        host    : !P.host
+            include:
+                - "10.20.1.11"
+        setup: !P.rigger
+             sys    : "front,intenal"
+             os     : "diy"
+             env    : "demo"
+
+    sys_beta: !P.publish
+        pkg     : *sys_pkg
+        deploy  : *sys_deploy
+        host    : !P.host
+            include:
+                - "t17v.plat.bjac.pdtv.it"
+        setup: !P.rigger
+             sys    : "front,intenal"
+             os     : "diy"
+             env    : "beta"
+
+    sys_geli: !P.publish
+        pkg     : *sys_pkg
+        deploy  : *sys_deploy
+        host    : !P.host
+            include:
+                - "pt5v.plat.bjtb.pdtv.it"
+                - "pt9v.plat.bjtb.pdtv.it"
+                - "t12v.plat.bjac.pdtv.it"
+                - "t11v.plat.bjac.pdtv.it"
+        setup: !P.rigger
+             sys    : "front,intenal"
+             os     : "diy"
+             env    : "geli"
+
+    beta_bag_packet: !P.publish
+        pkg     : *sys_pkg
+        deploy  : *sys_deploy
+        host    : !P.host
+            include:
+                - "t5v.plat.bjac.pdtv.it"
+        setup: !P.rigger
+             sys    : "packet"
+             os     : "diy"
+             env    : "beta"
+
+    sys_bjac_beta_crontab: !P.publish
+        pkg     : *sys_pkg
+        deploy  : *sys_deploy
+        host    : !P.host
+            include:
+                - "t6v.plat.bjac.pdtv.it"
+        setup: !P.rigger
+             sys    : "crontab"
+             os     : "diy"
+             env    : "beta"
+
+    bjac_bag_packet: !P.publish
+        pkg     : *sys_pkg
+        deploy  : *sys_deploy
+        host    : !P.host
+            include:
+                - "work5v.plat.bjac.pdtv.it"
+        setup: !P.rigger
+             sys    : "packet"
+             os     : "diy"
+             env    : "online,bjac"
+
+    bjtb_bag_packet: !P.publish
+        pkg     : *sys_pkg
+        deploy  : *sys_deploy
+        host    : !P.host
+            include:
+                - "work5v.plat.bjtb.pdtv.it"
+        setup: !P.rigger
+             sys    : "packet"
+             os     : "diy"
+             env    : "online,bjtb"
+
+    sys_bjac_online: !P.publish
+        pkg     : *sys_pkg
+        deploy  : *sys_deploy
+        host    : !P.host
+            include:
+                - "@/home/q/tools/game_team/svr/online-main-bag-bjac.svr"
+        setup: !P.rigger
+             sys    : "front,intenal"
+             os     : "diy"
+             env    : "online,bjac"
+
+    sys_bjtb_online: !P.publish
+        pkg     : *sys_pkg
+        deploy  : *sys_deploy
+        host    : !P.host
+            include:
+                - "@/home/q/tools/game_team/svr/online-main-bag-bjtb.svr"
+        setup: !P.rigger
+             sys    : "front,intenal"
+             os     : "diy"
+             env    : "online,bjtb"
+
+    sys_bjac_crontab: !P.publish
+        pkg     : *sys_pkg
+        deploy  : *sys_deploy
+        host    : !P.host
+            include:
+                - "work4v.plat.bjac.pdtv.it"
+        setup: !P.rigger
+             sys    : "crontab"
+             os     : "diy"
+             env    : "online,bjac"
+
+    sys_bjtb_crontab: !P.publish
+        pkg     : *sys_pkg
+        deploy  : *sys_deploy
+        host    : !P.host
+            include:
+                - "work4v.plat.bjtb.pdtv.it"
+        setup: !P.rigger
+             sys    : "crontab"
+             os     : "diy"
+             env    : "online,bjtb"
+
+    sys_online_test: !P.publish
+        pkg     : *sys_pkg
+        deploy  : *sys_deploy
+        host    : !P.host
+            include:
+                - "ppub1v.main.bjtb.pdtv.it"
+        setup: !P.rigger
+             sys    : "front,intenal"
+             os     : "diy"
+             env    : "online,bjtb"

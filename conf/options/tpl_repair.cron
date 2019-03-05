@@ -1,0 +1,1 @@
+*/10 * * * *   (cd ${PRJ_ROOT}; /home/q/tools/pylon_rigger/rigger php -s crontab -f ${PRJ_ROOT}/src/worker/repair_cron.php 2>&1 > /dev/null )

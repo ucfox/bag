@@ -1,0 +1,8 @@
+*.swp
+*.tmp
+bin/
+pkg/
+nohup.out
+*.log
+*.retry
+vendor/

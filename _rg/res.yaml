@@ -1,0 +1,350 @@
+#!import "./module.yaml"
+reusable:
+    - !R.vars  &u_demo_svc
+        API_PROXY:      ""
+    - !R.vars  &u_online_svc
+        API_PROXY:      ""
+
+    - !R.vars  &u_svc_mode
+        USER:           "online"
+        PRJ_ROOT:       "/home/q/system/bag/"
+
+__env:
+    cache: !R.vars  &u_cache
+        API_PROXY:      "http://127.0.0.1:8086"
+
+    debug: !R.vars  &u_debug
+        PHP_ERROR:      "E_ALL"
+        PYL_LOG_MODE:   "DEBUG"
+        DISPLAY_ERRORS: "On"
+        DEBUG        :  1
+        OPCACHE_ENABLE: 0
+
+    ndebug: !R.vars  &u_ndebug
+        PHP_ERROR:      "E_ERROR"
+        DISPLAY_ERRORS: "Off"
+        PYL_LOG_MODE :  "ONLINE"
+        DEBUG        :
+        OPCACHE_ENABLE: 1
+
+    dev: !R.env
+        res:
+            - !R.using
+                refs:
+                    - *u_demo_svc
+                    - *u_debug
+            - !R.vars
+                ENV:            "dev"
+                DOMAIN_PREFIX:  "${USER}."
+                IO_DOMAIN_PREFIX:  "${USER}."
+                PRJ_ROOT:       "${HOME}/devspace/bag/"
+                YAFENV      :   "dev"
+                # janna
+                MYSQL_ENDPOINTS : "etcd.demo.pdtv.io:2379"
+                MYSQL_CALLNAME :    "ibag"
+                MYSQL_TARGET :    "default"
+                DB_NAME     :   "ibag"
+                DB_USER     :   "pd_dev"
+                DB_PWD      :   "FFduSWTXo6l8e0Zn"
+                BAG_PICKET_ZOOKEEPER      :   "t13v.plat.bjza.pdtv.it:2181,t14v.plat.bjza.pdtv.it:2181,t15v.plat.bjza.pdtv.it:2181"
+                BAG_PICKET_TOPIC      :   "beta_packet"
+                #ibag
+                IBAG_HOST      : "demo.ibag.pdtv.io"
+                IBAG_IP        : "10.20.1.11:8360"
+                #ruc
+                RUC_IP          : "10.20.1.11"
+                RUC_API_DOMAIN  : "demo.api.u.panda.tv"
+                #guuid
+                GUUID_IDC : "test"
+                GUUID_ENV : "env"
+                #mysql
+                DB_HOST     :   "mysql.demo.pdtv.io"
+                DB_HOST_SLAVE     :   "mysql.demo.pdtv.io"
+                DB_PWD      :   "FFduSWTXo6l8e0Zn"
+                DB_NAME     :   "ibag"
+                DB_USER     :   "pd_dev"
+                DB_PORT     :   "3306"
+                #xy
+                XY_SIGN      : "test"
+
+                REDIS_BAG_ENDPOINTS : "etcd.demo.pdtv.io:2379"
+                REDIS_BAG_CALLNAME : "ibag"
+                REDIS_BAG_TARGET : "bag"
+                MASTER_REDIS_PWD_BAG : ""
+                SLAVE_REDIS_PWD_BAG : ""
+
+    demo: !R.env
+        res:
+            - !R.using
+                refs:
+                    - *u_ndebug
+                    - *u_demo_svc
+                    - *u_svc_mode
+            - !R.vars
+                ENV:            "demo"
+                DOMAIN_PREFIX:  ""
+                IO_DOMAIN_PREFIX:  ""
+                YAFENV      :   "demo"
+                # janna
+                MYSQL_ENDPOINTS : "etcd.demo.pdtv.io:2379"
+                MYSQL_CALLNAME :    "ibag"
+                MYSQL_TARGET :    "default"
+                DB_NAME     :   "ibag"
+                DB_USER     :   "pd_dev"
+                DB_PWD      :   "FFduSWTXo6l8e0Zn"
+                BAG_PICKET_ZOOKEEPER      :   "t13v.plat.bjza.pdtv.it:2181,t14v.plat.bjza.pdtv.it:2181,t15v.plat.bjza.pdtv.it:2181"
+                BAG_PICKET_TOPIC      :   "beta_packet"
+                #ibag
+                IBAG_HOST      : "demo.ibag.pdtv.io"
+                IBAG_IP        : "10.20.1.11:8360"
+                #ruc
+                RUC_IP          : "10.20.1.11"
+                RUC_API_DOMAIN  : "demo.api.u.panda.tv"
+                #guuid
+                GUUID_IDC : "soho"
+                GUUID_ENV : "demo"
+                #mysql
+                DB_HOST     :   "mysql.demo.pdtv.io"
+                DB_HOST_SLAVE     :   "mysql.demo.pdtv.io"
+                DB_PWD      :   "FFduSWTXo6l8e0Zn"
+                DB_NAME     :   "ibag_demo"
+                DB_USER     :   "pd_dev"
+                DB_PORT     :   "3306"
+                #xy
+                XY_SIGN      : "test"
+
+                REDIS_BAG_ENDPOINTS : "etcd.demo.pdtv.io:2379"
+                REDIS_BAG_CALLNAME : "ibag"
+                REDIS_BAG_TARGET : "bag"
+                MASTER_REDIS_PWD_BAG : ""
+                SLAVE_REDIS_PWD_BAG : ""
+
+    beta: !R.env
+        res:
+            - !R.using
+                refs:
+                    - *u_demo_svc
+                    - *u_debug
+                    - *u_svc_mode
+            - !R.vars
+                ENV:            "beta"
+                DOMAIN_PREFIX:  ""
+                IO_DOMAIN_PREFIX:  "beta."
+                YAFENV      :   "beta"
+                # janna
+                MYSQL_ENDPOINTS : "bjtb.etcd1.beta.pdtv.io:2379,bjtb.etcd2.beta.pdtv.io:2379,bjtb.etcd3.beta.pdtv.io:2379"
+                MYSQL_CALLNAME :    "ibag"
+                MYSQL_TARGET :    "default"
+                DB_NAME     :   "ibag"
+                DB_USER     :   "uprofile"
+                DB_PWD      :   "6852267438836c5a"
+                BAG_PICKET_ZOOKEEPER      :   "t13v.plat.bjza.pdtv.it:2181,t14v.plat.bjza.pdtv.it:2181,t15v.plat.bjza.pdtv.it:2181"
+                BAG_PICKET_TOPIC      :   "beta_packet"
+                #ibag
+                IBAG_HOST      : "beta.ibag.pdtv.io"
+                IBAG_IP        : "10.110.66.17:8360"
+                #ruc
+                RUC_API_DOMAIN      : "api.u.panda.tv"
+                RUC_IP              : "10.110.22.121;10.110.22.122;10.110.22.123;10.110.22.124;10.110.22.125;10.110.24.67"
+                #guuid
+                GUUID_IDC : "bjtb"
+                GUUID_ENV : "beta"
+                #mysql
+                DB_NAME     :   "ibag"
+                DB_USER     :   "uprofile"
+                DB_PWD      :   "6852267438836c5a"
+                DB_HOST     :   "10.131.7.24"
+                DB_HOST_SLAVE     :   "10.131.7.24"
+                DB_PORT     :   "3306"
+                #xy
+                XY_SIGN      : "test"
+
+                REDIS_BAG_ENDPOINTS : "bjtb.etcd3.beta.pdtv.io:2379"
+                REDIS_BAG_CALLNAME : "ibag"
+                REDIS_BAG_TARGET : "bag"
+                MASTER_REDIS_PWD_BAG : "wtea0193248c9oci"
+                SLAVE_REDIS_PWD_BAG : "wtea0193248c9oci"
+
+    geli: !R.env
+        res:
+            - !R.using
+                refs:
+                    - *u_demo_svc
+                    - *u_debug
+                    - *u_svc_mode
+            - !R.vars
+                ENV:            "beta"
+                DOMAIN_PREFIX:  ""
+                IO_DOMAIN_PREFIX:  ""
+                YAFENV      :   "beta"
+                # janna
+                MYSQL_ENDPOINTS : "bjtb.etcd1.beta.pdtv.io:2379,bjtb.etcd2.beta.pdtv.io:2379,bjtb.etcd3.beta.pdtv.io:2379"
+                MYSQL_CALLNAME :    "ibag"
+                MYSQL_TARGET :    "default"
+                DB_NAME     :   "ibag"
+                DB_USER     :   "uprofile"
+                DB_PWD      :   "6852267438836c5a"
+                BAG_PICKET_ZOOKEEPER      :   "t13v.plat.bjza.pdtv.it:2181,t14v.plat.bjza.pdtv.it:2181,t15v.plat.bjza.pdtv.it:2181"
+                BAG_PICKET_TOPIC      :   "beta_packet"
+                #ibag
+                IBAG_HOST      : "beta.ibag.pdtv.io"
+                IBAG_IP        : "10.110.66.17:8360"
+                #ruc
+                RUC_API_DOMAIN      : "api.u.panda.tv"
+                RUC_IP              : "10.110.22.121;10.110.22.122;10.110.22.123;10.110.22.124;10.110.22.125;10.110.24.67"
+                #geli
+                ISOLATION : "true"
+                #mysql
+                DB_NAME     :   "ibag"
+                DB_USER     :   "uprofile"
+                DB_PWD      :   "6852267438836c5a"
+                DB_HOST     :   "10.131.7.24"
+                DB_HOST_SLAVE     :   "10.131.7.24"
+                DB_PORT     :   "3306"
+                #xy
+                XY_SIGN      : "test"
+
+                REDIS_BAG_ENDPOINTS : "bjtb.etcd3.beta.pdtv.io:2379"
+                REDIS_BAG_CALLNAME : "ibag"
+                REDIS_BAG_TARGET : "bag"
+                MASTER_REDIS_PWD_BAG : "wtea0193248c9oci"
+                SLAVE_REDIS_PWD_BAG : "wtea0193248c9oci"
+
+    online: !R.env
+        res:
+            - !R.using
+                refs:
+                    - *u_ndebug
+                    - *u_online_svc
+                    - *u_svc_mode
+                    - *u_cache
+            - !R.vars
+                ENV:            "online"
+                DOMAIN_PREFIX:  ""
+                IO_DOMAIN_PREFIX:  ""
+                # janna
+                MYSQL_CALLNAME :    "ibag"
+                MYSQL_TARGET :    "default"
+                DB_NAME     :   "ibag"
+                DB_USER     :   "ibag"
+                DB_PWD      :   "jOcwL0I207RgGWX6"
+                BAG_PICKET_TOPIC      :   "packet"
+                #ibag
+                IBAG_HOST      : "ibag.pdtv.io"
+                #xy
+                XY_SIGN      : "P0nqNNuNToMUzlVbMxTLVMXdXgamoK2H"
+                #guuid
+                GUUID_ENV : "online"
+                #mysql
+                DB_NAME     :   "ibag"
+                DB_USER    :   "ibag"
+                DB_PWD      :   "jOcwL0I207RgGWX6"
+                DB_PORT     :   "3306"
+
+                REDIS_BAG_CALLNAME : "ibag"
+                REDIS_BAG_TARGET : "bag"
+                MASTER_REDIS_PWD_BAG : "UE9Cnd0BcGewewGO"
+                SLAVE_REDIS_PWD_BAG : "UE9Cnd0BcGewewGO"
+
+    bjtb: !R.env
+        res:
+            - !R.using
+                refs:
+                    - *u_ndebug
+                    - *u_online_svc
+                    - *u_svc_mode
+                    - *u_cache
+            - !R.vars
+                YAFENV      :   "bjtb"
+                # janna
+                MYSQL_ENDPOINTS : "bjtb.etcd1.pdtv.io:2479,bjtb.etcd2.pdtv.io:2479,bjtb.etcd3.pdtv.io:2479"
+                BAG_PICKET_ZOOKEEPER      :   "kafkabiz3v.infra.bjtb.pdtv.it:2181,kafkabiz2v.infra.bjtb.pdtv.it:2181,kafkabiz1v.infra.bjtb.pdtv.it:2181"
+                #ibag
+                IBAG_IP        : "10.131.1.242:8360"
+                #guuid
+                GUUID_IDC : "bjtb"
+                #mysql
+                DB_HOST      :   "10.131.10.216"
+                DB_HOST_SLAVE      :   "10.131.12.1"
+
+                REDIS_BAG_ENDPOINTS : "bjtb.etcd1.pdtv.io:2479,bjtb.etcd2.pdtv.io:2479,bjtb.etcd3.pdtv.io:2479"
+
+__prj: !R.prj
+       res:
+        - !R.vars
+                PRJ_NAME:       "bag"
+                PRJ_KEY:        "bag"
+                MODULES:        "/home/q/php/svc_utls:/home/q/php/gsdk_base"
+                PHP_INI:        "${PRJ_ROOT}/conf/used/php.ini"
+
+        - !R.path
+            dst :  "${PRJ_ROOT}/conf/used/"
+        - !R.path
+            dst :  "${PRJ_ROOT}/tmp/"
+        - !R.file_tpl
+            tpl : "${PRJ_ROOT}/conf/options/tpl_php.ini"
+            dst : "${PHP_INI}"
+        - !R.using
+            ref : *base_svc
+        - !R.ngx_lua
+            src : "${PRJ_ROOT}src/lua"
+            force : true
+
+
+__sys:
+    front: !R.system2
+            res:
+                - !R.vars
+                    APP_SYS         : "front"
+                    PHP_INI         : "${PRJ_ROOT}/conf/used/php.ini"
+                    DOMAIN          : "${DOMAIN_PREFIX}bag.gate.panda.tv"
+                    MODULES         : "${MODULES}:${PRJ_ROOT}/src"
+                - !R.using
+                    ref :  *pylon_action
+                - !R.shell
+                    script : "${PRJ_ROOT}/bin/export_lua.sh"
+
+    intenal: !R.system2
+            res:
+                - !R.vars
+                    APP_SYS         : "intenal"
+                    PHP_INI         : "${PRJ_ROOT}/conf/used/php.ini"
+                    DOMAIN          : "${IO_DOMAIN_PREFIX}bag.pdtv.io"
+                    MODULES         : "${MODULES}:${PRJ_ROOT}/src"
+                - !R.using
+                    ref :  *pylon_action
+
+    crontab :  !R.system2
+            res:
+                - !R.vars
+                    APP_SYS         : "crontab"
+                    MODULES         : "${MODULES}"
+                    PHP_INI         : "${PRJ_ROOT}/conf/used/php.ini"
+                - !R.using
+                    ref : *origin_php
+                - !R.file_tpl
+                    tpl  : "${PRJ_ROOT}/conf/options/tpl_repair.cron"
+                    dst  : "${PRJ_ROOT}/conf/used/repair.cron"
+                - !R.crontab
+                   cron : "${PRJ_ROOT}/conf/used/repair.cron"
+
+    packet :  !R.system2 # 支付golang消费
+        res:
+           - !R.vars
+               APP_SYS         : "packet"
+           - !R.using
+               ref :  *pylon_golang
+           - !R.supervisor
+               cmd: "${PRJ_ROOT}/bin/packet"   #supervisor脚本
+
+    test:  !R.system2
+            res:
+                - !R.vars
+                    APP_SYS: "test"
+                    PRJ_INCLUDE: "${PRJ_ROOT}/conf:${PRJ_ROOT}/src/apps/console/:${PRJ_ROOT}/src/"
+                    MODULES         : "${MODULES}:${PRJ_ROOT}/test/:/usr/local/php-7.0.11/lib/php"
+                - !R.using
+                    ref : *pylon_php
+                - !R.phpunit2
+                    include_path: "${MODULES}:/home/q/php"
+                    path: "test"
